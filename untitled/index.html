@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    function App(){
+        const[searchText, setSearchText] = usestate("");
+        const (playerData, setPlayerData) useState({});
+        const API_KEY="RGAPI-ed5dd5e2-14ac-4b28-9a45-480f7361b1f6"
+        function searchForPlayer(event){
+            var APICallString ="https://tw2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+ searchText +"?api_key="+API_KEY;
+            axios.get(APICallString).then(function (response) {
+                //success
+                setPlayerData(response.data);
+            }).catch(function (error) {
+                // Error
+                console.log(error);
+            });
+        }
+
+    }
+
+    console.log(playerData);
+
+    return(
+        <div className="App">
+            <div className="container">
+                <h5>League of Legends Player Searcher</h5>
+                <input type="text" onChange={e => setSearchText (e.target.value)}></input>
+                <button onClick={e => earchForPlayer(e)}>Search for player</button>
+            </div>
+        </div>
+    {JSON.stringify(playerDate)!='{}'?
+        <>
+            <p>{playerDate.name}</p>
+            <p>summoner level {playerDate.summonerLevel}</p>
+        </>
+        :
+        <><p>flase</p></>
+    }
+    ) ;
+</script>
+
+</body>
+</html>
